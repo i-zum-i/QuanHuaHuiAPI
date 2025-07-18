@@ -44,7 +44,7 @@ spring:
 # Logging Configuration for Testing
 logging:
   level:
-    com.rihua.api: DEBUG
+    jp.co.protosoft.rihua.api: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG

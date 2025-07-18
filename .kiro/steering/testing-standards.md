@@ -109,7 +109,7 @@ spring:
 
 logging:
   level:
-    com.rihua.api: DEBUG
+    jp.co.protosoft.rihua.api: DEBUG
     org.springframework.web: DEBUG
 ```
 #

@@ -16,7 +16,7 @@
 ## UserRepository テスト仕様
 
 ### テスト対象
-`com.rihua.api.repository.UserRepository`
+`jp.co.protosoft.rihua.api.repository.UserRepository`
 
 ### テストケース一覧
 
@@ -130,7 +130,7 @@ assertThat(count).isEqualTo(2);
 ## EventRepository テスト仕様
 
 ### テスト対象
-`com.rihua.api.repository.EventRepository`
+`jp.co.protosoft.rihua.api.repository.EventRepository`
 
 ### テストケース一覧
 

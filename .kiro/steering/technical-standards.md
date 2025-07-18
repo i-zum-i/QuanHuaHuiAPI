@@ -87,6 +87,65 @@
 - **ログ出力**: SLF4J + Logback による構造化ログ
 - **テスト戦略**: 単体テスト70%、統合テスト20%、E2Eテスト10%のテストピラミッド
 - **多言語対応**: MessageSourceを使用した国際化対応
+
+### 2.1. パッケージ構造標準
+
+**ベースパッケージ**: `jp.co.protosoft.rihua.api`
+
+```
+jp.co.protosoft.rihua.api/
+├── RihuaApiApplication.java          # メインアプリケーションクラス
+├── config/                           # 設定クラス
+│   ├── SecurityConfig.java
+│   ├── JacksonConfig.java
+│   └── WebConfig.java
+├── controller/                       # REST APIコントローラー
+│   ├── AuthController.java
+│   ├── UserController.java
+│   └── EventController.java
+├── service/                          # ビジネスロジック層
+│   ├── UserService.java
+│   ├── EventService.java
+│   └── CustomUserDetailsService.java
+├── repository/                       # データアクセス層
+│   ├── UserRepository.java
+│   ├── EventRepository.java
+│   └── HousingRepository.java
+├── domain/                          # エンティティクラス
+│   ├── User.java
+│   ├── Event.java
+│   ├── Housing.java
+│   └── enums/                       # 列挙型
+│       ├── UserStatus.java
+│       ├── EventCategory.java
+│       └── HousingType.java
+├── dto/                             # データ転送オブジェクト
+│   ├── request/                     # リクエストDTO
+│   │   ├── CreateUserRequest.java
+│   │   └── UpdateEventRequest.java
+│   └── response/                    # レスポンスDTO
+│       ├── UserResponse.java
+│       ├── EventResponse.java
+│       └── ErrorResponse.java
+├── security/                        # セキュリティ関連
+│   ├── JwtTokenProvider.java
+│   ├── JwtAuthenticationFilter.java
+│   ├── JwtAuthenticationEntryPoint.java
+│   └── UserPrincipal.java
+├── exception/                       # カスタム例外
+│   ├── BusinessException.java
+│   ├── UserNotFoundException.java
+│   └── ValidationException.java
+└── util/                           # ユーティリティクラス
+    ├── DateUtils.java
+    ├── ValidationUtils.java
+    └── MessageUtils.java
+```
+
+**パッケージ命名規則**:
+- 企業ドメイン: `jp.co.protosoft` (株式会社プロトソフト)
+- プロジェクト名: `rihua` (日华プロジェクト)
+- アプリケーション種別: `api` (REST API)
     
 
 ---

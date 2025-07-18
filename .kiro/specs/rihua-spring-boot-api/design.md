@@ -598,7 +598,7 @@ public class BaseController {
 {
   "timestamp": "2024-01-15T10:30:00.123Z",
   "level": "INFO",
-  "logger": "com.rihua.api.controller.UserController",
+  "logger": "jp.co.protosoft.rihua.api.controller.UserController",
   "message": "User profile updated",
   "userId": "123e4567-e89b-12d3-a456-426614174000",
   "endpoint": "/api/v1/users/profile",

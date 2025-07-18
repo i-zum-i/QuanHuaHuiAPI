@@ -57,7 +57,7 @@ server:
 # Logging Configuration for Development
 logging:
   level:
-    com.rihua.api: DEBUG
+    jp.co.protosoft.rihua.api: DEBUG
     org.springframework.security: DEBUG
     org.springframework.web: DEBUG
     org.hibernate.SQL: DEBUG

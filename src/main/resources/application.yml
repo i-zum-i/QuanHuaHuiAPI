@@ -88,7 +88,7 @@ management:
 # Logging Configuration
 logging:
   level:
-    com.rihua.api: INFO
+    jp.co.protosoft.rihua.api: INFO
     org.springframework.security: WARN
     org.hibernate.SQL: WARN
     org.hibernate.type.descriptor.sql.BasicBinder: WARN

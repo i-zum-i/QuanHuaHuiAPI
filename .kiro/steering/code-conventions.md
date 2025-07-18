@@ -40,19 +40,19 @@
 
 ### 1.4. パッケージ命名規則
 
-- **基本構造**: `com.rihua.api.*`
+- **基本構造**: `jp.co.protosoft.rihua.api.*`
 - **レイヤー別パッケージ**:
   ```
-  com.rihua.api.controller     # REST Controller
-  com.rihua.api.service        # ビジネスロジック
-  com.rihua.api.repository     # データアクセス
-  com.rihua.api.domain         # Entity
-  com.rihua.api.dto            # Data Transfer Object
-  com.rihua.api.config         # 設定クラス
-  com.rihua.api.exception      # カスタム例外
-  com.rihua.api.util           # ユーティリティ
-  com.rihua.api.security       # セキュリティ関連
-  com.rihua.api.validation     # バリデーション
+  jp.co.protosoft.rihua.api.controller     # REST Controller
+  jp.co.protosoft.rihua.api.service        # ビジネスロジック
+  jp.co.protosoft.rihua.api.repository     # データアクセス
+  jp.co.protosoft.rihua.api.domain         # Entity
+  jp.co.protosoft.rihua.api.dto            # Data Transfer Object
+  jp.co.protosoft.rihua.api.config         # 設定クラス
+  jp.co.protosoft.rihua.api.exception      # カスタム例外
+  jp.co.protosoft.rihua.api.util           # ユーティリティ
+  jp.co.protosoft.rihua.api.security       # セキュリティ関連
+  jp.co.protosoft.rihua.api.validation     # バリデーション
   ```
 
 ## 2. コード構造とスタイル
