@@ -30,7 +30,12 @@ public enum UserStatus {
     /**
      * 削除済み
      */
-    DELETED;
+    DELETED,
+    
+    /**
+     * 非アクティブ
+     */
+    INACTIVE;
 
     /**
      * ユーザーが有効かどうかを判定
@@ -47,7 +52,7 @@ public enum UserStatus {
      * @return ロックされている場合true
      */
     public boolean isLocked() {
-        return this == SUSPENDED || this == BANNED || this == DELETED;
+        return this == SUSPENDED || this == BANNED || this == DELETED || this == INACTIVE;
     }
 
     /**

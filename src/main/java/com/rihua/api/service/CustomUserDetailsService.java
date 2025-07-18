@@ -77,7 +77,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .collect(Collectors.toList());
 
         return UserPrincipal.builder()
-                .id(user.getId())
+                .id(user.getId().toString())
                 .email(user.getEmail())
                 .password(user.getPasswordHash())
                 .firstName(user.getFirstName())

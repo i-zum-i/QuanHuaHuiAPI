@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * ユーザーエンティティ
@@ -32,8 +33,9 @@ import java.util.Set;
 public class User {
 
     @Id
-    @Column(name = "id", length = 36)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", columnDefinition = "uuid")
+    private UUID id;
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
@@ -122,7 +124,7 @@ public class User {
      * @return 管理者権限を持っている場合true
      */
     public boolean isAdmin() {
-        return hasRole(UserRole.ADMIN);
+        return hasRole(UserRole.ADMIN) || hasRole(UserRole.SUPER_ADMIN);
     }
 
     /**
