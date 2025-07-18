@@ -1,0 +1,93 @@
+spring:
+  # Test Database Configuration (H2 in-memory)
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  # JPA Configuration for Testing
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+        use_sql_comments: true
+  
+  # Flyway Configuration for Testing
+  flyway:
+    enabled: false # Disable Flyway for tests, use JPA DDL
+  
+  # Redis Configuration for Testing
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 1 # Use different database for tests
+  
+  # Mail Configuration for Testing
+  mail:
+    host: localhost
+    port: 1025
+    username: 
+    password: 
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+# Logging Configuration for Testing
+logging:
+  level:
+    com.rihua.api: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.testcontainers: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Test specific configuration
+rihua:
+  jwt:
+    secret: test-jwt-secret-key-for-testing-only
+    access-token-expiration: 3600000 # 1 hour
+    refresh-token-expiration: 2592000000 # 30 days
+  
+  cors:
+    allowed-origins: http://localhost:3000
+  
+  # External Services (Mock for Testing)
+  aws:
+    s3:
+      bucket-name: test-bucket
+      region: ap-northeast-1
+      access-key: test-access-key
+      secret-key: test-secret-key
+    ses:
+      region: ap-northeast-1
+      from-email: test@rihua.test
+  
+  stripe:
+    api-key: sk_test_test_key
+    webhook-secret: whsec_test_secret
+  
+  expo:
+    access-token: test-expo-token
+
+# Security Configuration for Testing
+security:
+  require-ssl: false
+
+# Management Configuration for Testing
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

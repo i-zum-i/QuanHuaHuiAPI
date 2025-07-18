@@ -1,0 +1,47 @@
+# Development-specific Docker Compose configuration
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+version: '3.8'
+
+services:
+  # Override API service for development
+  rihua-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder  # Use builder stage for development
+    volumes:
+      - .:/app
+      - /app/target  # Anonymous volume for target directory
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DEVTOOLS_RESTART_ENABLED: true
+    command: ./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+    stdin_open: true
+    tty: true
+
+  # Add development tools
+  adminer:
+    image: adminer:latest
+    container_name: rihua-adminer
+    ports:
+      - "8081:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: postgres
+    networks:
+      - rihua-network
+    depends_on:
+      - postgres
+
+  # Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: rihua-redis-commander
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - "8082:8081"
+    networks:
+      - rihua-network
+    depends_on:
+      - redis

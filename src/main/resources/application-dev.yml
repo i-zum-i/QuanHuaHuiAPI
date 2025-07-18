@@ -1,0 +1,119 @@
+spring:
+  # Database Configuration for Development
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rihua_dev
+    username: rihua_user
+    password: rihua_password
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      connection-timeout: 20000
+  
+  # JPA Configuration for Development
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+  
+  # Redis Configuration for Development
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 0
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 2
+  
+  # Mail Configuration for Development (MailHog)
+  mail:
+    host: localhost
+    port: 1025
+    username: 
+    password: 
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
+# Server Configuration for Development
+server:
+  port: 8080
+
+# Logging Configuration for Development
+logging:
+  level:
+    com.rihua.api: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Management Configuration for Development
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+# Development specific configuration
+rihua:
+  jwt:
+    secret: dev-jwt-secret-key-for-development-only
+    access-token-expiration: 3600000 # 1 hour
+    refresh-token-expiration: 2592000000 # 30 days
+  
+  cors:
+    allowed-origins: http://localhost:3000,http://localhost:3001,http://localhost:19006
+    allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+  
+  # External Services (Development/Mock)
+  aws:
+    s3:
+      bucket-name: rihua-dev-bucket
+      region: ap-northeast-1
+      access-key: dev-access-key
+      secret-key: dev-secret-key
+      endpoint: http://localhost:9000 # MinIO for local development
+    ses:
+      region: ap-northeast-1
+      from-email: noreply@rihua.dev
+  
+  stripe:
+    api-key: sk_test_dev_key
+    webhook-secret: whsec_dev_secret
+  
+  expo:
+    access-token: dev-expo-token
+
+# Security Configuration for Development
+security:
+  require-ssl: false
+
+# File Upload Configuration for Development
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB

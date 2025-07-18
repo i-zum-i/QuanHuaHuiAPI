@@ -1,0 +1,150 @@
+spring:
+  # Database Configuration
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      connection-timeout: 20000
+      leak-detection-threshold: 60000
+  
+  # JPA Configuration
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        use_sql_comments: false
+        jdbc:
+          batch_size: 20
+          order_inserts: true
+          order_updates: true
+  
+  # Redis Configuration
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD}
+      database: 0
+      ssl: ${REDIS_SSL:false}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 20
+          max-idle: 10
+          min-idle: 5
+  
+  # Mail Configuration (AWS SES)
+  mail:
+    host: ${MAIL_HOST:email-smtp.ap-northeast-1.amazonaws.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 10000
+          timeout: 10000
+          writetimeout: 10000
+
+# Server Configuration
+server:
+  port: ${PORT:8080}
+  servlet:
+    session:
+      timeout: 30m
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 10
+    max-connections: 8192
+    accept-count: 100
+    connection-timeout: 20000
+
+# Logging Configuration
+logging:
+  level:
+    com.rihua.api: INFO
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    org.springframework.web: WARN
+  file:
+    name: /var/log/rihua-api/application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 100MB
+      max-history: 30
+      total-size-cap: 3GB
+
+# Management Configuration (Actuator)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: never
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Production specific configuration
+rihua:
+  jwt:
+    secret: ${JWT_SECRET}
+    access-token-expiration: 3600000 # 1 hour
+    refresh-token-expiration: 2592000000 # 30 days
+  
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+    allowed-methods: GET,POST,PUT,PATCH,DELETE,OPTIONS
+    allowed-headers: "*"
+    allow-credentials: true
+  
+  # External Services
+  aws:
+    s3:
+      bucket-name: ${AWS_S3_BUCKET}
+      region: ${AWS_REGION:ap-northeast-1}
+      access-key: ${AWS_ACCESS_KEY}
+      secret-key: ${AWS_SECRET_KEY}
+    ses:
+      region: ${AWS_REGION:ap-northeast-1}
+      from-email: ${SES_FROM_EMAIL}
+  
+  stripe:
+    api-key: ${STRIPE_API_KEY}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET}
+  
+  expo:
+    access-token: ${EXPO_ACCESS_TOKEN}
+
+# Security Configuration
+security:
+  require-ssl: true
+
+# Rate Limiting Configuration
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-buckets
+      url: /api/.*
+      rate-limits:
+        - bandwidths:
+            - capacity: 1000
+              time: 1
+              unit: minutes
+          cache-key: getRemoteAddr()
